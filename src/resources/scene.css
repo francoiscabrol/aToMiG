@@ -1,0 +1,60 @@
+
+/*
+ * Copyright (c) 2014 François Cabrol.
+ *
+ *  This file is part of LeapMelodyGenerator.
+ *
+ *     LeapMelodyGenerator is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     LeapMelodyGenerator is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with LeapMelodyGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Copyright (c) 2013 François Cabrol.
+ *
+ *  This file is part of ScalaGenerator.
+ *
+ *     ScalaGenerator is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     ScalaGenerator is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with ScalaGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.commandRectangle {
+    -fx-fill: #38ff60;
+}
+
+.message {
+    -fx-fill: #ff091f;
+    -fx-font-size: 50;
+}
+
+.fingers {
+    -fx-fill: #3f95f2;
+    -fx-font-size: 20;
+}
+
+.commandName {
+    -fx-fill: #ffffff;
+    -fx-font-size: 40;
+    -fx-spacing: 10;
+    -fx-font-weight: bold;
+    -fx-rotate: -90;
+}
