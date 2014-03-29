@@ -3,6 +3,7 @@
 *.jar
 
 # Intellij
+out/production
 .idea/
 *.iml
 *.iws
