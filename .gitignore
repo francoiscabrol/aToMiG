@@ -4,6 +4,7 @@
 
 # Intellij
 out/production
+out/test
 .idea/
 *.iml
 *.iws
