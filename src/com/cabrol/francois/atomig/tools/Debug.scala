@@ -25,9 +25,11 @@ package com.cabrol.francois.atomig.tools
  */
 object Debug {
 
-  val player=true
+  val player        =true
+  val eventsManager =true
 
-  def player(msg:String):Unit = if(player) println("[PLAYER] " + msg)
+  def player(msg:String):Unit        = if(player) println("[PLAYER] " + msg)
+  def eventsManager(msg:String):Unit = if(player) println("[EVENTS_MANAGER] " + msg)
 
   private def setColor(s:String):String = s match {
     case "blue" => Console.BLUE

@@ -24,7 +24,7 @@ import com.cabrol.francois.libjamu.musictheory.entity.scaleNote.{Scale, Chord}
 import com.cabrol.francois.mural.generator.rulebased.sequential.Methods
 import com.cabrol.francois.mural.generator.rulebased.parameters.HarmonicDefinition
 import com.cabrol.francois.mural.generator.rulebased.streaming.StreamGenerator
-import com.cabrol.francois.atomig.player.StreamPlayer
+import com.cabrol.francois.atomig.player.{EventsManager, StreamPlayer}
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,7 +52,7 @@ object RealTimeGenerator {
       val param = Parameters(global, dynamic, 1)
 
       val q = new StreamGenerator(param)
-      val sp = new StreamPlayer(q)
+      val sp = new StreamPlayer(new EventsManager(q))
       sp.start
     }
 
