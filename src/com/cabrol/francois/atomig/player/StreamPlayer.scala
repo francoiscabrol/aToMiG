@@ -33,6 +33,7 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
   val channel               = 1
   val bpmInMillis           = 600000
 
+
   def act() {
     Debug.player("Start")
     open()
@@ -44,24 +45,34 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
         + CLOCK_SYNCHRONIZATION_TICKS_PER_BEAT + " for MIDI clock synchronization");
     }
     val clockTimingsPerTick:Int = CLOCK_SYNCHRONIZATION_TICKS_PER_BEAT / ticksPerBeat;
-    var referenceTime           = System.nanoTime();
-    var tickReferenceTime       = referenceTime;
-    var timingTickReferenceTime = referenceTime;
-    var currentTick             = 0;
+    var referenceTime           = System.nanoTime()
+    var tickReferenceTime       = referenceTime
+    var timingTickReferenceTime = referenceTime
+    var currentTick             = 0
     eventsManager.start()
     loop{
         //lazy val currentBeat = math.floor(currentTick / ticksPerBeat)
         Debug.player("Current tick is "  + currentTick)
-        Debug.player("Reference time is " + tickReferenceTime)
         referenceTime            = waitNanos(tickReferenceTime, timingTickReferenceTime)
-        timingTickReferenceTime += getTimingTickNanos(clockTimingsPerTick, ticksPerBeat)
-        if (referenceTime >= tickReferenceTime) {
-          eventsManager.askNewNotes(currentTick)
-          playTick   (currentTick)
-          currentTick = currentTick + 1
-        }
-        //muteAllChannels;
+      Debug.player("Reference Time is " + referenceTime)
+      if (referenceTime >= timingTickReferenceTime) {
+        //if (useClockSynchronization) {
+        //send clock synchronization message
+        //}
+        timingTickReferenceTime += getTimingTickNanos(ticksPerBeat, clockTimingsPerTick)
+        Debug.player("Timing Tick Reference Time time is " + timingTickReferenceTime)
+      }
+      if (referenceTime >= tickReferenceTime) {
+        //eventsManager.askNewNotes(currentTick)
+        playTick(currentTick)
+        currentTick       += 1
         tickReferenceTime += getTickNanos(currentTick, ticksPerBeat)
+        Debug.player("Tick Reference Time time is " + tickReferenceTime)
+      }
+
+        //muteAllChannels;
+
+
     }
   }
 
@@ -84,8 +95,8 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
   def muteAllChannel = Debug.player("Mute all channel")
 
   def waitNanos(time1:Long, time2:Long):Long = {
-    val wantedNanos:Long = Math.min(time1, time2)
-    val wait:Long        = math.max(0, wantedNanos - System.nanoTime())
+    val wantedNanos:Long = Math.max(time1, time2)
+    val wait:Long        = Math.max(0, wantedNanos - System.nanoTime())
     if (wait > 0) {
       Debug.player("Waiting nanos " + wait)
       Thread.sleep((wait / 1000000L).toInt, (wait % 1000000L).toInt)
@@ -102,7 +113,7 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
   }
 
   def getTickNanos(tick:Int, ticksPerBeat:Int):Long = {
-    60000000000L / (ticksPerBeat * bpmInMillis)
+    60000000000000L / (ticksPerBeat * bpmInMillis)
   }
 
   def open() {
