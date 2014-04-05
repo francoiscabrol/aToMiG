@@ -39,9 +39,11 @@ class EventsManager(streamGenerator:StreamGenerator) extends Actor{
     launchGenerator
     loop{
       react{
-        case ev:MessageBox => { Debug.eventsManager("Get new notes from the generator:"+ev.ls);
+        case ev:MessageBox => {
+          Debug.eventsManager("Get new notes from the generator:"+ev.ls)
           if(!ev.ls.isEmpty) {
             val midiNoteEvents:List[MidiNoteEvent] = ev.ls.map(f => MidiEventFactory.getMidiNoteEvents(f).asScala.toList).flatten
+            println("num of notes:"+midiNoteEvents.size)
             queueOfEvents ++= midiNoteEvents
           }
         }

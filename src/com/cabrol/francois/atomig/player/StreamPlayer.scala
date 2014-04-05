@@ -33,9 +33,9 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
   val channel               = 1
   val bpmInMillis           = 600000
 
-
   def act() {
     Debug.player("Start")
+    eventsManager.start()
     open()
     if (!opened) {
       Debug.player("The device need to be open")
@@ -49,7 +49,6 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
     var tickReferenceTime       = referenceTime
     var timingTickReferenceTime = referenceTime
     var currentTick             = 0
-    eventsManager.start()
     loop{
         //lazy val currentBeat = math.floor(currentTick / ticksPerBeat)
         Debug.player("Current tick is "  + currentTick)
@@ -63,7 +62,7 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
         Debug.player("Timing Tick Reference Time time is " + timingTickReferenceTime)
       }
       if (referenceTime >= tickReferenceTime) {
-        //eventsManager.askNewNotes(currentTick)
+        eventsManager.askNewNotes(currentTick)
         playTick(currentTick)
         currentTick       += 1
         tickReferenceTime += getTickNanos(currentTick, ticksPerBeat)
@@ -78,6 +77,7 @@ class StreamPlayer(eventsManager:EventsManager) extends Actor{
 
   def playTick(currentTick:Int):Unit = {
     Debug.player("Play tick " + currentTick)
+
     val midiNotes:List[MidiNoteEvent] = eventsManager.queueOfEvents.filter(p => (currentTick == p.getTick)).toList
     midiNotes.foreach(e => {
       sendMidiMessage(deviceSelected, e.getNoteMessageType(), e.getKey(), e.getVelocity())
